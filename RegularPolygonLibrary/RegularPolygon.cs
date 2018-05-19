@@ -9,10 +9,13 @@ using Utility = RegularPolygonLibrary.RegularPolygonUtility;
 namespace RegularPolygonLibrary
 {
     /// <summary>
-    /// Represents regular polygon by array of vertices on plane.
+    /// Represents regular convex polygon byarray of vertices on plane.
     /// </summary>
     public class RegularPolygon
     {
+        /// <summary>
+        /// Array of consecutive vertices representing polygon.
+        /// </summary>
         private Vertex[] vertices;
 
         /// Vertices order in "newVertices" matters, because every neighbouring pair of vertices in array,
@@ -20,28 +23,10 @@ namespace RegularPolygonLibrary
         /// Thus these vertices must determine sides with equal lengths or an exception will be thrown.
         public RegularPolygon(Vertex[] newVertices)
         {
-            if (newVertices == null)
-            {
-                throw new RegularPolygonException("Cannot create polygon without vertices.");
-            }
-            if(newVertices.Length <=2)
-            {
-                throw new RegularPolygonException($"Cannot create polygon with {newVertices.Length} vertices, at least 3 are needed.");
-            }
+            ValidateVertices(newVertices);
 
-            // distance between first and last will be used as reference side length value for other vetices distances.
-            double firstSideLength = newVertices[0].GetDistanceFrom(newVertices.Last());
-            for (int i = 0; i < newVertices.Length - 1; i++) 
-            {
-                double currentSideLength = newVertices[i].GetDistanceFrom(newVertices[i + 1]);
-                if (! Utility.CompareDouble(firstSideLength, currentSideLength))
-                {
-                    throw new RegularPolygonException("Cannot create regular polygon with unequal side lengths.");
-                }
-            }
-            //if achieved this point, parameters are correct
             vertices = newVertices;
-            SideLength = firstSideLength;
+            SideLength = newVertices[0].GetDistanceFrom(newVertices[1]); // distance between vertices is equal, so can choose first side.
         }
 
         /// <summary>
@@ -96,6 +81,54 @@ namespace RegularPolygonLibrary
             }
             string description = builder.ToString();
             return description;
+        }
+
+        private bool ValidateVertices(Vertex[] vertices)
+        {
+            if (vertices == null)
+            {
+                throw new RegularPolygonException("Cannot create polygon without vertices.");
+            }
+            if (vertices.Length <= 2)
+            {
+                throw new RegularPolygonException($"Cannot create polygon with {vertices.Length} vertices, at least 3 are needed.");
+            }
+
+            // check if vertices are unique;
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                if (vertices.Count(v => v.Equals(vertices[i])) > 1) // if there are two equals vertices
+                {
+                    throw new RegularPolygonException("Cannot create polygon with duplicated vertices.");
+                }
+            }
+
+            // check if sides lenghts are equal;
+            // distance between first and last will be used as reference side length value for other vertices distances.
+            double firstSideLength = vertices[0].GetDistanceFrom(vertices.Last());
+            for (int i = 0; i < vertices.Length - 1; i++)
+            {
+                double currentSideLength = vertices[i].GetDistanceFrom(vertices[i + 1]);
+                if (!Utility.CompareDouble(firstSideLength, currentSideLength))
+                {
+                    throw new RegularPolygonException("Cannot create regular polygon with unequal side lengths.");
+                }
+            }
+
+            // check if vertices determine polygon that can be inscribed in a circle.;
+            double avgX = vertices.Average(v => v.X);
+            double avgY = vertices.Average(v => v.Y);
+            Vertex circleCenter = new Vertex(avgX, avgY);
+            double circleRadius = circleCenter.GetDistanceFrom(vertices[0]); // distance from first vertex as reference distance value
+            for (int i = 1; i < vertices.Length; i++)
+            {
+                if (! Utility.CompareDouble(circleCenter.GetDistanceFrom(vertices[i]), circleRadius))
+                {
+                    throw new RegularPolygonException("Cannot create regular polygon that cannot be inscribed in circle.");
+                }
+            }
+
+            return true;
         }
     }
 }

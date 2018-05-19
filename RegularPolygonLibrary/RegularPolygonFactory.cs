@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace RegularPolygonLibrary
 {
     /// <summary>
-    /// Factory that can create RegularPolygon objects, given number of vertices, side length and starting point.
+    /// Factory that can create convex regular polygons, given number of vertices, side length and starting point.
     /// </summary>
     public class RegularPolygonFactory
     {
         /// <summary>
-        /// Creates polygon with attrbiutes specified in arguments.
+        /// Creates regular convex polygon with attrbiutes specified in arguments.
         /// Polygon is created using following algorithm:
         ///     Starting from angle = 0 and first vertex given:
         ///      1. Save current vertex in vertices array.

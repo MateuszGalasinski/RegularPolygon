@@ -42,15 +42,40 @@ namespace RegularPolygonTests
 
         [TestMethod]
         [ExpectedException(typeof(RegularPolygonException))]
-        public void CreatePolygon_IncorrectVertices_ShouldThrow()
+        public void CreatePolygon_Uniqueness_ShouldThrow()
         {
             Vertex[] vertices = new Vertex[]
             {
                 new Vertex(0, 0),
+                new Vertex(3, 0),
                 new Vertex(0, 0),
-                new Vertex(3.927, 2.853),
-                new Vertex(1.5, 4.617),
-                new Vertex(-0.927, 2.853),
+            };
+            RegularPolygon Rombhus = new RegularPolygon(vertices);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RegularPolygonException))]
+        public void CreatePolygon_Rombhus_ShouldThrow()
+        {
+            Vertex[] vertices = new Vertex[]
+            {
+                new Vertex(0, 0),
+                new Vertex(Math.Sqrt(2), 0),
+                new Vertex(1, Math.Sqrt(2)),
+                new Vertex(1 + Math.Sqrt(2), Math.Sqrt(2)),
+            };
+            RegularPolygon Rombhus = new RegularPolygon(vertices);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RegularPolygonException))]
+        public void CreatePolygon_IncorrectSidesLength_ShouldThrow()
+        {
+            Vertex[] vertices = new Vertex[]
+            {
+                new Vertex(0, 0),
+                new Vertex(2, 0),
+                new Vertex(0, 2)
             };
             RegularPolygon polygon = new RegularPolygon(vertices);
         }
