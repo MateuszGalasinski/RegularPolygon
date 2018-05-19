@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace RegularPolygonLibrary
 {
+    /// <summary>
+    /// Factory that can create RegularPolygon objects, given number of vertices, side length and starting point.
+    /// </summary>
     public class RegularPolygonFactory
     {
         /// <summary>
@@ -14,9 +17,14 @@ namespace RegularPolygonLibrary
         ///     Starting from angle = 0 and first vertex given:
         ///      1. Save current vertex in vertices array.
         ///      2. Calculate another vertex coordinates by moving distance equal to side length in direction specified by current angle.
-        ///      3. Update current angle by adding "angle step" = 2 * PI divided by numberOfVertices. (in other words, rotate clockwise by "angle step")
+        ///      3. Update current angle by adding "angle step" = 2 * PI divided by numberOfVertices. (in other words, rotate counter-clockwise by "angle step")
         ///      4. Repeat steps 1-3 until all vertexes were generated.
         /// </summary>
+        /// <exception cref="RegularPolygonFactoryException">
+        /// Thrown when input parameters are incorrect:
+        ///  numberOfVertices - has to be greater than 2.
+        ///  sideLength - has to be greater than 0
+        /// </exception>
         /// <param name="numberOfVertices"> How many vertices should polygon has.</param>
         /// <param name="sideLength"> How long should one side of polygon be.</param>
         /// <param name="startingVertex">Starting vertex for polygon generation.</param>

@@ -34,6 +34,13 @@ namespace RegularPolygonLibrary
             return distance;
         }
 
+        /// <summary>
+        /// Checks objects equality.
+        /// Uses CompareDouble from RegularPolygonUtilityUtility class when comparing X and Y values.
+        /// <see cref="RegularPolygonUtility.CompareDouble(double, double)"/>
+        /// </summary>
+        /// <param name="obj"> Object for comparison</param>
+        /// <returns>True, if objects meet equality requirements. Otherwise, false.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Vertex))

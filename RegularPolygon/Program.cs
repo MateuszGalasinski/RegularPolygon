@@ -14,13 +14,29 @@ namespace RegularPolygonConsoleApplication
 
         static void Main(string[] args)
         {
-            InputParameters parameters = ParseInputParameters(args);
-            CalculateRegularPolygon(parameters);
+            try
+            {
+                InputParameters parameters = ParseInputParameters(args);
+                CalculateRegularPolygon(parameters);
+            }
+            catch(Exception ex)
+            {
+                WriteErrorLine(ex.Message);
+            }
 
             Console.WriteLine("Press any key to continue... ");
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Create new InputParameters object from text parameters.
+        /// </summary>
+        /// <exception cref="InputParametersException">
+        /// Thrown when number of parameters is incorrect
+        /// or when any of parameters couldn't be converted into appropriate object.
+        /// </exception>
+        /// <param name="args">Parameters to be parsed.</param>
+        /// <returns>InputParameters object corresponding to args method parameter</returns>
         private static InputParameters ParseInputParameters(string[] args)
         {
             //check parameters correctness
@@ -30,15 +46,15 @@ namespace RegularPolygonConsoleApplication
             }
             if (!Int32.TryParse(args[0], out int numberOfVertices))
             {
-                throw new InputParametersException($"Could not read number of vertexes. {args[0]} is not a valid first argument.");
+                throw new InputParametersException($"Could not read number of vertexes. '{args[0]}' is not a valid first argument.");
             }
             if (!Double.TryParse(args[1], out double sideLength))
             {
-                throw new InputParametersException($"Could not read polygon side length. {args[1]} is not a valid second argument.");
+                throw new InputParametersException($"Could not read polygon side length. '{args[1]}' is not a valid second argument.");
             }
-            if (args[2].ToLowerInvariant() != "d" || args[2].ToLowerInvariant() != "f")
+            if (! (args[2].ToLowerInvariant() == "d" || args[2].ToLowerInvariant() == "f") ) // should be d or f
             {
-                throw new InputParametersException($"Could not read if should store result in file or display it. {args[2]} is not a valid third argument.");
+                throw new InputParametersException($"Could not read if should store result in file or display it. '{args[2]}' is not a valid third argument.");
             }
 
             //set proper application mode
@@ -61,6 +77,11 @@ namespace RegularPolygonConsoleApplication
             return parameters;
         }
 
+        /// <summary>
+        /// Creates RegularPolygon object with specified attributes and according to Mode from 'parameters':
+        /// displays polygon description on console or saves it to default file.
+        /// </summary>
+        /// <param name="parameters"></param>
         private static void CalculateRegularPolygon(InputParameters parameters)
         {
             RegularPolygonFactory factory = new RegularPolygonFactory();
@@ -96,6 +117,12 @@ namespace RegularPolygonConsoleApplication
             }
         }
 
+        /// <summary>
+        /// Tries to save polygon description to default file.
+        /// If operation cannot be done, displays error message on console.
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="fileName"></param>
         private static void SaveToFile(RegularPolygon polygon, string fileName)
         {
             try
@@ -108,6 +135,10 @@ namespace RegularPolygonConsoleApplication
             }
         }
 
+        /// <summary>
+        /// Writes given text with dark red color.
+        /// </summary>
+        /// <param name="message"></param>
         private static void WriteErrorLine(string message)
         {
             ConsoleColor before = Console.ForegroundColor;

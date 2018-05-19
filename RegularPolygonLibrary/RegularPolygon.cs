@@ -79,6 +79,10 @@ namespace RegularPolygonLibrary
             return area;
         }
 
+        /// <summary>
+        /// Creates polygon full description.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
