@@ -7,6 +7,9 @@ using Utility = RegularPolygonLibrary.RegularPolygonUtility;
 
 namespace RegularPolygonLibrary
 {
+    /// <summary>
+    /// Represents single point on plane using two cartesian coordinates : x and y.
+    /// </summary>
     public struct Vertex
     {
         public Vertex(double x, double y)
@@ -18,6 +21,11 @@ namespace RegularPolygonLibrary
         public double X { get; set; }
         public double Y { get; set; }
 
+        /// <summary>
+        /// Calculates euclidean distance between this vertex and given vertex.
+        /// </summary>
+        /// <param name="secondVertex"> Vertex to calculate distance from</param>
+        /// <returns>Distance value as double</returns>
         public double GetDistanceFrom(Vertex secondVertex)
         {
             double distance = Math.Pow((X - secondVertex.X), 2);

@@ -9,7 +9,7 @@ namespace RegularPolygonTests
     public class RegularPolygonTest
     {
         [TestMethod]
-        public void CreatePolygon_CorrectVertices_ProperArea()
+        public void CreatePolygon_CorrectVertices_CheckArea()
         {
             Vertex[] vertices = new Vertex[]
             {
@@ -25,7 +25,7 @@ namespace RegularPolygonTests
         }
 
         [TestMethod]
-        public void CreatePolygon_CorrectVertices_ProperSideLength()
+        public void CreatePolygon_CorrectVertices_CheckSideLength()
         {
             Vertex[] vertices = new Vertex[]
             {
@@ -53,8 +53,25 @@ namespace RegularPolygonTests
                 new Vertex(-0.927, 2.853),
             };
             RegularPolygon polygon = new RegularPolygon(vertices);
-            double correctSideLength = 3;
-            Assert.IsTrue(Utility.CompareDouble(correctSideLength, polygon.SideLength));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RegularPolygonException))]
+        public void CreatePolygon_NotEnoughVertices_ShouldThrow()
+        {
+            Vertex[] vertices = new Vertex[]
+            {
+                new Vertex(0, 0),
+                new Vertex(1, 0),
+            };
+            RegularPolygon polygon = new RegularPolygon(vertices);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RegularPolygonException))]
+        public void CreatePolygon_NullVertices_ShouldThrow()
+        {
+            RegularPolygon polygon = new RegularPolygon(null);
         }
     }
 }
