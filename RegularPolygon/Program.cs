@@ -1,6 +1,7 @@
 ﻿using RegularPolygonLibrary;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace RegularPolygonConsoleApplication
 {
     class Program
     {
-        private static readonly string _fileToSaveName = "SavedPolygonDescription.txt";
+        private static readonly string _fileToSaveName = "polygon_description.txt";
 
         static void Main(string[] args)
         {
@@ -48,7 +49,7 @@ namespace RegularPolygonConsoleApplication
             {
                 throw new InputParametersException($"Could not read number of vertexes. '{args[0]}' is not a valid first argument.");
             }
-            if (!Double.TryParse(args[1], out double sideLength))
+            if (!Double.TryParse(args[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double sideLength))
             {
                 throw new InputParametersException($"Could not read polygon side length. '{args[1]}' is not a valid second argument.");
             }

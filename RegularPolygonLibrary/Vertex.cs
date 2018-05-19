@@ -59,9 +59,11 @@ namespace RegularPolygonLibrary
         }
 
         /// <summary>
-        /// Default implementation for future uses.
+        /// Returns a hash code for this instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
         {
             var hashCode = 1861411795;
