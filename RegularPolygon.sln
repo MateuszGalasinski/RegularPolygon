@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegularPolygonLibrary", "RegularPolygonLibrary\RegularPolygonLibrary.csproj", "{162FF292-53F2-4830-A391-E91E37F1F0BE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegularPolygonConsoleApplication", "RegularPolygon\RegularPolygonConsoleApplication.csproj", "{EBB287CB-7ECC-4FC0-9EDD-0C4FFB5BD7F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegularPolygonLibrary", "RegularPolygonLibrary\RegularPolygonLibrary.csproj", "{162FF292-53F2-4830-A391-E91E37F1F0BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegularPolygonTests", "RegularPolygonTests\RegularPolygonTests.csproj", "{A4E820FB-6364-4D44-A891-89037DB9F105}"
 EndProject
