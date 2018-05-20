@@ -29,3 +29,7 @@ At the end program will prompt the user to click any key in order to finish prog
 `polygon.exe 5 4.23 d`    
 * Save to file description of hexagon with side length of 2     
 `polygon.exe 6 2 f`   
+
+## Authors  
+
+* Mateusz Gałasiński
